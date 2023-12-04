@@ -1,1 +1,1 @@
-# Journey-Genuis
+# TravelGenius
