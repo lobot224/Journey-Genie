@@ -101,50 +101,60 @@ public class GUI extends JFrame {
         cardPanel.add(startScreen, "startScreen");
     }
 //in progress 
-private void createBudgetScreen(){
+private void createBudgetScreen() {
     JPanel budgetScreen = new JPanel(new BorderLayout());
 
     // Title label
-    JLabel titleLabel = new JLabel("Budget Your Trip");
+    JLabel titleLabel = new JLabel("Budget Your Trip!");
     titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
 
     // Add a label to specify that the user needs to enter an integer value
-    JLabel instructionLabel = new JLabel("Please enter an integer value for budget tokens:");
-    instructionLabel.setBounds(50, 20, 300, 20);
-    budgetScreen.add(instructionLabel);
+    JLabel instructionLabel = new JLabel("Please enter your budget:");
+    instructionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    budgetScreen.add(instructionLabel, BorderLayout.NORTH);
 
     final JTextField textField = new JTextField();
-    textField.setBounds(50, 50, 150, 20);
+    textField.setPreferredSize(new Dimension(150, 30)); // Adjust the size as needed
     JButton submitButton = new JButton("Submit");
-    submitButton.setBounds(50, 100, 95, 30);
+
     submitButton.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
+        String input = textField.getText().trim();
+
+        if (input.isEmpty()) {
+            // Display an error message for empty input
+            JOptionPane.showMessageDialog(null, "Please enter a valid budget.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             try {
                 // Parse the text field input to an integer
-                double budgetAmount = Integer.parseInt(textField.getText());
-                System.out.println("Entered budget : " + budgetAmount);
+                double budgetAmount = Double.parseDouble(input);
+                System.out.println("Entered budget: " + budgetAmount);
                 // Update your tokens variable here
 
                 // Switch to the 'selectionScreen'
-                CardLayout cl = (CardLayout)(cardPanel.getLayout());
+                CardLayout cl = (CardLayout) (cardPanel.getLayout());
                 cl.show(cardPanel, "selectionScreen");
             } catch (NumberFormatException ex) {
-                // Handle the case where the input was not an integer
-                System.out.println("Invalid input. Please enter an integer value.");
+                // Handle the case where the input was not a valid number
+                JOptionPane.showMessageDialog(null, "Please enter a valid number for the budget.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    });
-    //        JPanel buttonPanel = new JPanel(new FlowLayout());
-    JPanel buttonPanel = new JPanel(new FlowLayout()); 
+    }
+});
+
+
+    JPanel inputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+    inputPanel.add(textField);
+    
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     buttonPanel.add(submitButton);
-    //budgetScreen.add(textField);
-    //budgetScreen.add(button);
 
     budgetScreen.add(titleLabel, BorderLayout.NORTH);
-    budgetScreen.add(buttonPanel, BorderLayout.CENTER);
-    budgetScreen.add(textField, BorderLayout.SOUTH);
-    cardPanel.add(budgetScreen, "budgetScreen"); 
+    budgetScreen.add(inputPanel, BorderLayout.CENTER);
+    budgetScreen.add(buttonPanel, BorderLayout.SOUTH);
+
+    cardPanel.add(budgetScreen, "budgetScreen");
 }
 
 
