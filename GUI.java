@@ -44,64 +44,63 @@ public class GUI extends JFrame {
         createFinishScreen();
         createListScreen();
         createBudgetScreen(); 
+        createCreateABudgetScreen(); 
 
         frame.add(cardPanel);
         frame.setVisible(true);
     }
 
     private void createStartScreen() {
-        JPanel startScreen = new JPanel(new BorderLayout());
-    
-        // Title label
-        JLabel titleLabel = new JLabel("JourneyGenius");
-        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
-    
-        JButton startButton = new JButton("Start");
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String city = JOptionPane.showInputDialog(frame, "Enter the city you want to visit:");
-                if (city != null && !city.isEmpty()) {
-                    System.out.println("City selected: " + city);
-                    cardLayout.show(cardPanel, "budgetScreen");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "City is required. Please enter a city name.", "Error", JOptionPane.WARNING_MESSAGE);
-                }
+    JPanel startScreen = new JPanel(new BorderLayout());
+
+    // Title label
+    JLabel titleLabel = new JLabel("JourneyGenius");
+    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    titleLabel.setFont(new Font("Serif", Font.BOLD, 24));
+
+    JButton startButton = new JButton("Start");
+    startButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Implement the logic to navigate to the "initialBudgetScreen"
+            CardLayout cl = (CardLayout) (cardPanel.getLayout());
+            cl.show(cardPanel, "initialBudgetScreen");
+        }
+    });
+
+    JButton aboutUsButton = new JButton("About Us");
+    aboutUsButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(frame, "We are a group of software and computer engineers who are passionate about creating simple solutions for common problems! \nWe created TravelGenius because we recognized a shared challenge among travelers: planning a trip can be time-consuming and overwhelming. \nTravelGenius aims to simplify the process by organizing the travel plans by itself. \nWe hope you enjoy using our app!​", "About Us", JOptionPane.INFORMATION_MESSAGE);
+        }
+    });
+
+    JButton exitButton = new JButton("Exit");
+    exitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int choice = JOptionPane.showConfirmDialog(frame, "Do you want to exit the program?", "Exit Program", JOptionPane.YES_NO_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                System.exit(0);
             }
-        });
-    
-        JButton aboutUsButton = new JButton("About Us");
-        aboutUsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "We are a group of software and computer engineers who are passionate about creating simple solutions for common problems! \nWe created TravelGenius because we recognized a shared challenge among travelers: planning a trip can be time-consuming and overwhelming. \nTravelGenius aims to simplify the process by organizing the travel plans by itself. \nWe hope you enjoy using our app!​", "About Us", JOptionPane.INFORMATION_MESSAGE);
-            }
-        });
-    
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(frame, "Do you want to exit the program?", "Exit Program", JOptionPane.YES_NO_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
-            }
-        });
-    
-        JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(startButton);
-        buttonPanel.add(aboutUsButton);
-        buttonPanel.add(exitButton);
-    
-        startScreen.add(titleLabel, BorderLayout.NORTH);
-        startScreen.add(buttonPanel, BorderLayout.CENTER);
-    
-        cardPanel.add(startScreen, "startScreen");
-    }
+        }
+    });
+
+    JPanel buttonPanel = new JPanel(new FlowLayout());
+    buttonPanel.add(startButton);
+    buttonPanel.add(aboutUsButton);
+    buttonPanel.add(exitButton);
+
+    startScreen.add(titleLabel, BorderLayout.NORTH);
+    startScreen.add(buttonPanel, BorderLayout.CENTER);
+
+    cardPanel.add(startScreen, "startScreen");
+}
+
+
 //in progress 
-private void createBudgetScreen() {
+private void createCreateABudgetScreen() {
     JPanel budgetScreen = new JPanel(new BorderLayout());
 
     // Title label
@@ -130,7 +129,9 @@ private void createBudgetScreen() {
                 // Parse the text field input to an integer
                 double budgetAmount = Double.parseDouble(input);
                 System.out.println("Entered budget: " + budgetAmount);
-                // Update your tokens variable here
+                // Update to real budget 
+
+                // Implement logic here 
 
                 // Switch to the 'selectionScreen'
                 CardLayout cl = (CardLayout) (cardPanel.getLayout());
@@ -154,8 +155,75 @@ private void createBudgetScreen() {
     budgetScreen.add(inputPanel, BorderLayout.CENTER);
     budgetScreen.add(buttonPanel, BorderLayout.SOUTH);
 
+    cardPanel.add(budgetScreen, "initialBudgetScreen");
+}
+
+
+private void createBudgetScreen() {
+    JPanel budgetScreen = new JPanel(new BorderLayout());
+
+    // Button to update (add) budget
+    JButton updateButton = new JButton("Update/Add to");
+    updateButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Show dialog box to get new budget input
+            String newBudget = JOptionPane.showInputDialog(frame, "Enter the updated budget:");
+            if (newBudget != null && !newBudget.isEmpty()) {
+                try {
+                    // Parse the input to a double
+                    double updatedBudget = Double.parseDouble(newBudget);
+                    // Update the budget (replace this with your actual logic)
+                    System.out.println("Updated budget: " + updatedBudget);
+                } catch (NumberFormatException ex) {
+                    // Handle the case where the input was not a valid number
+                    JOptionPane.showMessageDialog(frame, "Please enter a valid number for the budget.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    });
+
+    // Start over 
+    JButton newButton = new JButton("New");
+    newButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Switch to the initial budget screen
+            CardLayout cl = (CardLayout) (cardPanel.getLayout());
+            cl.show(cardPanel, "initialBudgetScreen");
+        }
+    });
+
+    // Button to view the current budget
+    JButton viewButton = new JButton("View");
+    viewButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Show the current budget (replace with your actual logic)
+            JOptionPane.showMessageDialog(frame, "Current Budget: $" + budgetAmount, "View Budget", JOptionPane.INFORMATION_MESSAGE);
+        }
+    });
+
+    JButton finishButton = new JButton("Finish");
+    finishButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // Switch back to the selection screen
+            CardLayout cl = (CardLayout) (cardPanel.getLayout());
+            cl.show(cardPanel, "selectionScreen");
+        }
+    });
+
+    JPanel buttonPanel = new JPanel(new FlowLayout());
+    buttonPanel.add(updateButton);
+    buttonPanel.add(newButton);
+    buttonPanel.add(viewButton);
+    buttonPanel.add(finishButton);
+
+    budgetScreen.add(buttonPanel, BorderLayout.CENTER);
     cardPanel.add(budgetScreen, "budgetScreen");
 }
+
 
 
 
@@ -219,48 +287,69 @@ private void createBudgetScreen() {
         });
     
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        buttonPanel.add(selectionButton);
-        buttonPanel.add(selectionButton2);
-        buttonPanel.add(selectionButton3); 
-        buttonPanel.add(selectionButton4);
-        buttonPanel.add(selectionButton5);
-        buttonPanel.add(selectionButton6);
-        buttonPanel.add(selectionButton7);
-    
-        JButton finishButton = new JButton("Finish");
-        finishButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!selectedLocations.isEmpty()) {
-                    cardLayout.show(cardPanel, "listScreen");
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Please select at least one location to visit.", "Error", JOptionPane.WARNING_MESSAGE);
-                }
-                            System.out.println("Selected Locations: " + selectedLocations); // Print the selected locations to the console
+    buttonPanel.add(selectionButton);
+    buttonPanel.add(selectionButton2);
+    buttonPanel.add(selectionButton3);
+    buttonPanel.add(selectionButton4);
+    buttonPanel.add(selectionButton5);
+    buttonPanel.add(selectionButton6);
+    buttonPanel.add(selectionButton7);
+
+    JButton finishButton = new JButton("Finish");
+    finishButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (!selectedLocations.isEmpty()) {
+                cardLayout.show(cardPanel, "listScreen");
+            } else {
+                JOptionPane.showMessageDialog(frame, "Please select at least one location to visit.", "Error", JOptionPane.WARNING_MESSAGE);
             }
-        });
-    
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int choice = JOptionPane.showConfirmDialog(frame, "Do you want to save your progress?", "Save Progress?", JOptionPane.YES_NO_CANCEL_OPTION);
-                if (choice == JOptionPane.YES_OPTION) {
-                    // Save progress
-                    // Save logic to be implemented later, likely a simple local .txt file to read from 
-                }
-                if (choice != JOptionPane.CANCEL_OPTION) {
-                    selectedLocations.clear();
-                    cardLayout.show(cardPanel, "startScreen");
-                }
+            System.out.println("Selected Locations: " + selectedLocations); // Print the selected locations to the console
+        }
+    });
+
+    JButton backButton = new JButton("Back");
+    backButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int choice = JOptionPane.showConfirmDialog(frame, "Do you want to save your progress?", "Save Progress?", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                // Save progress
+                // Save logic to be implemented later, likely a simple local .txt file to read from 
             }
-        });
-    
-        selectionScreen.add(buttonPanel, BorderLayout.CENTER);
-        selectionScreen.add(finishButton, BorderLayout.NORTH);
-        selectionScreen.add(exitButton, BorderLayout.SOUTH);
-        cardPanel.add(selectionScreen, "selectionScreen");
-    }
+            if (choice != JOptionPane.CANCEL_OPTION) {
+                selectedLocations.clear();
+                cardLayout.show(cardPanel, "budgetScreen");
+            }
+        }
+    });
+
+    JButton exitButton = new JButton("Exit");
+    exitButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int choice = JOptionPane.showConfirmDialog(frame, "Do you want to save your progress?", "Save Progress?", JOptionPane.YES_NO_CANCEL_OPTION);
+            if (choice == JOptionPane.YES_OPTION) {
+                // Save progress
+                // Save logic to be implemented later, likely a simple local .txt file to read from 
+            }
+            if (choice != JOptionPane.CANCEL_OPTION) {
+                selectedLocations.clear();
+                cardLayout.show(cardPanel, "startScreen");
+            }
+        }
+    });
+
+    JPanel southButtonPanel = new JPanel(new FlowLayout());
+    southButtonPanel.add(backButton);
+    southButtonPanel.add(exitButton);
+
+    selectionScreen.add(buttonPanel, BorderLayout.CENTER);
+    selectionScreen.add(finishButton, BorderLayout.NORTH);
+    selectionScreen.add(southButtonPanel, BorderLayout.SOUTH);
+
+    cardPanel.add(selectionScreen, "selectionScreen");
+}
 
     /* 
      * Our first attraction: Downtown Dallas
