@@ -4,13 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.*;
+import java.awt.print.*;
+
 
 public class GUI extends JFrame {
     private JFrame frame;
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private List<String> selectedLocations;
-    public int budgetTokens; 
+    public int budgetAmount; 
 
     public Container getContentPane() {
         return super.getContentPane();
@@ -112,14 +115,14 @@ private void createBudgetScreen(){
 
     final JTextField textField = new JTextField();
     textField.setBounds(50, 50, 150, 20);
-    JButton button = new JButton("Submit");
-    button.setBounds(50, 100, 95, 30);
-    button.addActionListener(new ActionListener() {
+    JButton submitButton = new JButton("Submit");
+    submitButton.setBounds(50, 100, 95, 30);
+    submitButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             try {
                 // Parse the text field input to an integer
-                int tokens = Integer.parseInt(textField.getText());
-                System.out.println("Entered budget tokens: " + tokens);
+                double budgetAmount = Integer.parseInt(textField.getText());
+                System.out.println("Entered budget : " + budgetAmount);
                 // Update your tokens variable here
 
                 // Switch to the 'selectionScreen'
@@ -131,9 +134,15 @@ private void createBudgetScreen(){
             }
         }
     });
-    budgetScreen.add(textField);
-    budgetScreen.add(button);
+    //        JPanel buttonPanel = new JPanel(new FlowLayout());
+    JPanel buttonPanel = new JPanel(new FlowLayout()); 
+    buttonPanel.add(submitButton);
+    //budgetScreen.add(textField);
+    //budgetScreen.add(button);
 
+    budgetScreen.add(titleLabel, BorderLayout.NORTH);
+    budgetScreen.add(buttonPanel, BorderLayout.CENTER);
+    budgetScreen.add(textField, BorderLayout.SOUTH);
     cardPanel.add(budgetScreen, "budgetScreen"); 
 }
 
@@ -728,13 +737,41 @@ private void createBudgetScreen(){
             }
         });
     
-        JButton printButton = new JButton("Print List");
-        printButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Printing logic here
+        JButton printButton = new JButton("Print");
+printButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new Printable() {
+            public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+                if (page > 0) { // We have only one page, and 'page' is zero-based
+                    return NO_SUCH_PAGE;
+                }
+
+                // User (0,0) is typically outside the imageable area, so we must
+                // translate by the X and Y values in the PageFormat to avoid clipping
+                Graphics2D g2d = (Graphics2D)g;
+                g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+                // Now print the itinerary to the printer
+                // itineraryPanel is the component you want to print
+                listTextArea.printAll(g);
+
+                return PAGE_EXISTS;
             }
         });
+
+        boolean ok = job.printDialog();
+        if (ok) {
+            try {
+                job.print();
+            } catch (PrinterException ex) {
+                /* The job did not successfully complete */
+            }
+        }
+    }
+});
+
     
         JButton saveAndQuitButton = new JButton("Save and Quit");
         saveAndQuitButton.addActionListener(new ActionListener() {
