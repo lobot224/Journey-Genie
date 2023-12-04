@@ -40,6 +40,7 @@ public class GUI extends JFrame {
         createInfo4Screen(); 
         createInfo5Screen();
         createInfo6Screen();
+        createInfo7Screen();
         createFinishScreen();
         createListScreen();
         createBudgetScreen(); 
@@ -74,7 +75,7 @@ public class GUI extends JFrame {
         aboutUsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement later
+                JOptionPane.showMessageDialog(frame, "We are a group of software and computer engineers who are passionate about creating simple solutions for common problems! \nWe created TravelGenius because we recognized a shared challenge among travelers: planning a trip can be time-consuming and overwhelming. \nTravelGenius aims to simplify the process by organizing the travel plans by itself. \nWe hope you enjoy using our app!​", "About Us", JOptionPane.INFORMATION_MESSAGE);
             }
         });
     
@@ -191,11 +192,19 @@ private void createBudgetScreen(){
             }
         });
 
-        JButton selectionButton6 = new JButton("Reunion Tower"); // Sixth selection (Final for now)
+        JButton selectionButton6 = new JButton("Reunion Tower"); // Sixth selection
             selectionButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cardPanel, "info6Screen");
+            }
+        });
+
+        JButton selectionButton7 = new JButton("Six Flags"); // Sixth selection (Final for now)
+            selectionButton7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardPanel, "info7Screen");
             }
         });
     
@@ -206,6 +215,7 @@ private void createBudgetScreen(){
         buttonPanel.add(selectionButton4);
         buttonPanel.add(selectionButton5);
         buttonPanel.add(selectionButton6);
+        buttonPanel.add(selectionButton7);
     
         JButton finishButton = new JButton("Finish");
         finishButton.addActionListener(new ActionListener() {
@@ -614,13 +624,13 @@ private void createBudgetScreen(){
 
 
 /*
- * Sixth info screen: Reuinon Tower
+ * Sixth info screen: Reunion Tower
  */
     
     private void createInfo6Screen() {
         JPanel info6Screen = new JPanel(new BorderLayout());
     
-        JLabel titleLabel = new JLabel("Reuinion Tower");
+        JLabel titleLabel = new JLabel("Reunion Tower");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
     
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -683,6 +693,75 @@ private void createBudgetScreen(){
         cardPanel.add(info6Screen, "info6Screen");
     }
     
+    /*
+    * Seventh info screen: Six Flags
+    */
+    
+    private void createInfo7Screen() {
+        JPanel info7Screen = new JPanel(new BorderLayout());
+    
+        JLabel titleLabel = new JLabel("Six Flags");
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    
+        JPanel contentPanel = new JPanel(new BorderLayout());
+    
+        // Create a panel for the image
+        JPanel imagePanel = new JPanel();
+        ImageIcon imageIcon = new ImageIcon("attraction7.png");
+        JLabel imageLabel = new JLabel(imageIcon);
+        imagePanel.add(imageLabel);
+    
+        // Create a panel for the text
+        JPanel textPanel = new JPanel(new BorderLayout());
+        JTextArea textArea = new JTextArea("Six flags is a world of thrill and excitement! Experience the ultimate adventure with our heart-pounding roller coasters, family-friendly attractions, and live entertainment.\nWith a variety of rides catering to every level of adrenaline seeker, delicious dining options, and captivating shows, there's something for everyone.\nCome and discover why Six Flags is the ultimate destination for unforgettable experiences and endless entertainment!");
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setAutoscrolls(true);
+        textPanel.add(textArea);
+    
+        // Create a panel for buttons in the EAST region
+        JPanel buttonPanel = new JPanel();
+        JButton backButton6 = new JButton("Back");
+        backButton6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardPanel, "selectionScreen");
+            }
+        });
+    
+        JButton bookButton6 = new JButton("Book");
+        bookButton6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (selectedLocations.size() < 4) {
+                    String locationName = "Six Flags";
+                    if (bookButton6.getText().equals("Book")) {
+                        bookButton6.setText("Unbook");
+                        selectedLocations.add(locationName);
+                    } else {
+                        bookButton6.setText("Book");
+                        selectedLocations.remove(locationName);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        buttonPanel.add(backButton6); // Add the Back button to the buttonPanel
+        buttonPanel.add(bookButton6);
+    
+        // Add the image and text panels to the content panel
+        contentPanel.add(imagePanel, BorderLayout.WEST);
+        contentPanel.add(textPanel, BorderLayout.CENTER);
+    
+        // Add the button panel to the content panel
+        contentPanel.add(buttonPanel, BorderLayout.EAST);
+    
+        info7Screen.add(titleLabel, BorderLayout.NORTH);
+        info7Screen.add(contentPanel, BorderLayout.CENTER);
+        cardPanel.add(info7Screen, "info7Screen");
+    }
 
 
     private void createFinishScreen() {
