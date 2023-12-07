@@ -13,7 +13,7 @@ public class GUI extends JFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private List<String> selectedLocations;
-    public double budgetAmount =0; 
+    public int budgetAmount; 
 
     public Container getContentPane() {
         return super.getContentPane();
@@ -130,7 +130,7 @@ private void createCreateABudgetScreen() {
                 double budgetAmount = Double.parseDouble(input);
                 System.out.println("Entered budget: " + budgetAmount);
                 // Update to real budget 
-                    
+
                 // Implement logic here 
 
                 // Switch to the 'selectionScreen'
@@ -390,7 +390,7 @@ private void createBudgetScreen() {
         bookButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "Downtown Dallas"; // Replace with the actual location name
                     if (bookButton1.getText().equals("Book")) {
                         bookButton1.setText("Unbook");
@@ -400,7 +400,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -469,7 +469,7 @@ private void createBudgetScreen() {
         bookButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "The Eye"; // Replace with the actual location name
                     if (bookButton2.getText().equals("Book")) {
                         bookButton2.setText("Unbook");
@@ -479,7 +479,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -538,7 +538,7 @@ private void createBudgetScreen() {
         bookButton3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "The State Fair"; // Replace with the actual location name
                     if (bookButton3.getText().equals("Book")) {
                         bookButton3.setText("Unbook");
@@ -548,7 +548,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -613,7 +613,7 @@ private void createBudgetScreen() {
         bookButton4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "The University of Texas at Dallas"; 
                     if (bookButton4.getText().equals("Book")) {
                         bookButton4.setText("Unbook");
@@ -623,7 +623,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -692,7 +692,7 @@ private void createBudgetScreen() {
         bookButton5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "The Dallas Museum of Art"; 
                     if (bookButton5.getText().equals("Book")) {
                         bookButton5.setText("Unbook");
@@ -702,7 +702,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -763,7 +763,7 @@ private void createBudgetScreen() {
         bookButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "Reunion Tower";
                     if (bookButton6.getText().equals("Book")) {
                         bookButton6.setText("Unbook");
@@ -773,7 +773,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -833,7 +833,7 @@ private void createBudgetScreen() {
         bookButton6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (selectedLocations.size() < budgetAmount) {
+                if (selectedLocations.size() < 4) {
                     String locationName = "Six Flags";
                     if (bookButton6.getText().equals("Book")) {
                         bookButton6.setText("Unbook");
@@ -843,7 +843,7 @@ private void createBudgetScreen() {
                         selectedLocations.remove(locationName);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit.", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "You have reached the maximum booking limit (4 items).", "Booking Limit Exceeded", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
