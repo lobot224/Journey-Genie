@@ -1,1 +1,3 @@
-# TravelGenius
+# Journey Genie 
+
+
